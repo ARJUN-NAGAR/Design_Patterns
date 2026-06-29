@@ -21,6 +21,9 @@ e:/Design_Pattern/
     ├── Builder/
     │   └── student.java          # Independent Builder pattern implementation
     │
+    ├── Observer/
+    │   └── Observer_Pattern.java # Independent Observer pattern implementation
+    │
     └── Amazon/
         └── Main.java             # Project Amazon integrating the design patterns
 ```
@@ -70,6 +73,21 @@ e:/Design_Pattern/
   * The `build()` method instantiates and returns the final `student` object.
 * **Analysis & Observations:**
   * This is a highly robust pattern for creating objects with many optional attributes, avoiding "telescoping constructors" (constructors with long, confusing lists of arguments).
+
+---
+
+### D. Observer Pattern
+* **Location:** `Creational/Observer/Observer_Pattern.java`
+* **Purpose:** Defines a one-to-many dependency between objects so that when one object changes state, all its dependents are notified and updated automatically.
+* **Implementation Details:**
+  * **Subject Interface (`IChannel`):** Declares methods for subscribing (`subscribe`), unsubscribing (`unsubscribe`), and notifying (`notifySubscribers`) observers.
+  * **Concrete Subject (`Channel`):** Implements `IChannel`. It holds a list of subscribers (`ISubscriber`), handles video uploading (`uploadVideo`), and exposes video info using `getVideoData`.
+  * **Observer Interface (`ISubscriber`):** Declares the `update` method that is invoked when a subject publishes new updates.
+  * **Concrete Observer (`Subscriber`):** Implements `ISubscriber`. It maintains a reference to the `Channel` and its name, receiving updates whenever a new video is published.
+* **Analysis & Observations:**
+  * **Behavioral Nature in Creational Folder:** Although the Observer pattern is categorized as a behavioral pattern, it is stored under the `Creational` directory in this workspace structure.
+  * **Loose Coupling:** The `Channel` class depends on the interface `ISubscriber` rather than concrete `Subscriber` implementations. This allows subscribing different kinds of observers without altering the subject class.
+  * **Communication Pattern:** Uses a hybrid model. The subject signals an update (Push), and the observers query the subject for details (Pull) using `channel.getVideoData()`.
 
 ---
 
@@ -192,26 +210,30 @@ classDiagram
 ### 1. Compile all Java files
 Run the following command from the root folder `e:\Design_Pattern`:
 ```powershell
-javac Creational/Singleton/Singleton.java Creational/Factory/Factory.java Creational/Builder/student.java Creational/Amazon/Main.java
+javac Creational/Singleton/Singleton.java Creational/Factory/Factory.java Creational/Builder/student.java Creational/Observer/Observer_Pattern.java Creational/Amazon/Main.java
 ```
 
 ### 2. Run Standalone Patterns
 * **Singleton:**
   ```powershell
-  java Creational/Singleton/Singleton
+  java -cp Creational/Singleton Singleton
   ```
 * **Factory:**
   ```powershell
-  java Factory.Factory
+  java -cp Creational Factory.Factory
   ```
 * **Builder:**
   ```powershell
-  java Builder.student
+  java -cp Creational Builder.student
+  ```
+* **Observer:**
+  ```powershell
+  java -cp Creational/Observer Observer_Pattern
   ```
 
 ### 3. Run Project Amazon
 ```powershell
-java Amazon.Main
+java -cp Creational Amazon.Main
 ```
 **Example CLI Interaction:**
 ```text
